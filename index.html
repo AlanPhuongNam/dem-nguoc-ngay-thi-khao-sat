@@ -315,6 +315,81 @@
       color: #374151;
       text-shadow: none;
     }
+    /* Tương thích Light Mode cho khung ảnh góc trái & khung chỉnh nền góc phải */
+    body.light-mode .motivation-widget,
+    body.light-mode .bg-customizer-widget {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .widget-title,
+    body.light-mode .control-label {
+      color: #1e3a8a;
+    }
+
+    body.light-mode .color-hex {
+      color: #334155;
+    }
+
+    body.light-mode .upload-btn {
+      background: rgba(29, 78, 216, 0.08);
+      border-color: rgba(29, 78, 216, 0.35);
+      color: #1e3a8a;
+    }
+
+    body.light-mode .upload-btn:hover {
+      background: rgba(29, 78, 216, 0.15);
+    }
+
+    body.light-mode .reset-bg-btn {
+      border-color: rgba(0, 0, 0, 0.18);
+      color: #334155;
+    }
+
+    body.light-mode .reset-bg-btn:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: #0f172a;
+    }
+
+    body.light-mode .widget-btn {
+      background: #1d4ed8;
+    }
+
+    body.light-mode .widget-btn:hover {
+      background: #1e40af;
+    }
+
+    @media (max-width: 900px) {
+      .motivation-widget,
+      .bg-customizer-widget {
+        position: static;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 14px;
+      }
+
+      body {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .timer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 28px 0;
+      }
+
+      .time-box {
+        padding: 22px 5px;
+      }
+
+      .label {
+        font-size: 11px;
+      }
+    }
+
     @media (max-width: 520px) {
       .timer {
         grid-template-columns: repeat(2, 1fr);
@@ -483,19 +558,108 @@
           count++;
         }
 
-        const avgBrightness = totalBrightness / count;
-        // Nếu độ sáng > 130 (ảnh sáng), thêm class light-mode để chữ/khung hóa tối
-        if (avgBrightness > 130) {
-          document.body.classList.add("light-mode");
-        } else {
-          document.body.classList.remove("light-mode");
-        }
-      };
+        applyContrastByBrightness(totalBrightness / count);
+      } catch (err) {
+          // Bỏ qua nếu ảnh ngoài chặn đọc pixel (CORS)
+      }
+    };
+  }
+
+    const defaultBgImage = "view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg";
+    autoAdjustContrast(defaultBgImage);
+
+    // 4. TÙY CHỈNH MÀU NỀN, ĐỘ SÁNG & TẢI ẢNH NỀN LÊN
+    const bgColorPicker = document.getElementById("bgColorPicker");
+    const bgBrightnessSlider = document.getElementById("bgBrightnessSlider");
+    const bgImageUpload = document.getElementById("bgImageUpload");
+    const resetBgBtn = document.getElementById("resetBgBtn");
+    const colorHexText = document.getElementById("colorHexText");
+    const brightnessValue = document.getElementById("brightnessValue");
+
+    let bgMode = "image"; // "image" hoặc "color"
+    let uploadedObjectUrl = null;
+
+    function adjustHexBrightness(hex, percent) {
+      const cleanHex = hex.replace("#", "");
+      let r = parseInt(cleanHex.substring(0, 2), 16);
+      let g = parseInt(cleanHex.substring(2, 4), 16);
+      let b = parseInt(cleanHex.substring(4, 6), 16);
+
+      const factor = percent / 100;
+      if (factor >= 0) {
+        r = Math.round(r + (255 - r) * factor);
+        g = Math.round(g + (255 - g) * factor);
+        b = Math.round(b + (255 - b) * factor);
+      } else {
+        const darkFactor = 1 + factor;
+        r = Math.round(r * darkFactor);
+        g = Math.round(g * darkFactor);
+        b = Math.round(b * darkFactor);
+      }
+
+      r = Math.max(0, Math.min(255, r));
+      g = Math.max(0, Math.min(255, g));
+      b = Math.max(0, Math.min(255, b));
+
+      return { r, g, b };
     }
 
-    // Gọi hàm với tên file ảnh nền bạn đang sử dụng:
-    autoAdjustContrast("view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg");
-  // 4. DANH SÁCH ẢNH ĐỘNG LỰC & XỬ LÝ CHUYỂN ẢNH
+    function applyCustomColorBackground() {
+      bgMode = "color";
+      const baseHex = bgColorPicker.value;
+      const brightnessOffset = parseInt(bgBrightnessSlider.value, 10);
+
+      colorHexText.textContent = baseHex.toUpperCase();
+      brightnessValue.textContent = `${brightnessOffset > 0 ? "+" : ""}${brightnessOffset}%`;
+
+      const { r, g, b } = adjustHexBrightness(baseHex, brightnessOffset);
+      document.body.style.backgroundImage = "none";
+      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+      const perceivedBrightness = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      applyContrastByBrightness(perceivedBrightness);
+    }
+
+    bgColorPicker.addEventListener("input", applyCustomColorBackground);
+    bgBrightnessSlider.addEventListener("input", () => {
+      const brightnessOffset = parseInt(bgBrightnessSlider.value, 10);
+      brightnessValue.textContent = `${brightnessOffset > 0 ? "+" : ""}${brightnessOffset}%`;
+      if (bgMode === "color") {
+        applyCustomColorBackground();
+      }
+    });
+
+    bgImageUpload.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (uploadedObjectUrl) {
+        URL.revokeObjectURL(uploadedObjectUrl);
+      }
+      uploadedObjectUrl = URL.createObjectURL(file);
+      bgMode = "image";
+
+      document.body.style.backgroundColor = "#0f172a";
+      document.body.style.backgroundImage = `url('${uploadedObjectUrl}')`;
+      autoAdjustContrast(uploadedObjectUrl);
+    });
+
+    resetBgBtn.addEventListener("click", () => {
+      bgMode = "image";
+      bgBrightnessSlider.value = 0;
+      brightnessValue.textContent = "0%";
+      bgImageUpload.value = "";
+
+      if (uploadedObjectUrl) {
+        URL.revokeObjectURL(uploadedObjectUrl);
+        uploadedObjectUrl = null;
+      }
+
+      document.body.style.backgroundColor = "#0f172a";
+      document.body.style.backgroundImage = `url('${defaultBgImage}')`;
+      autoAdjustContrast(defaultBgImage);
+    });
+  // 5. DANH SÁCH ẢNH ĐỘNG LỰC & XỬ LÝ CHUYỂN ẢNH
     // Thay thế các đường dẫn dưới đây bằng tên file ảnh trong máy bạn (vd: "anh1.jpg", "anh2.jpg") hoặc link ảnh online
     const motivationImages = [
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000&q=80",
