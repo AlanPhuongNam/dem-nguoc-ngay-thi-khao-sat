@@ -15,11 +15,11 @@
       min-height: 100vh;
       font-family: Arial, sans-serif;
       color: white;
-      background-image: url('view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg');    /* Đổi thành tên file hoặc link ảnh */
-         background-size: cover;                  /* Giúp ảnh luôn vừa vặn toàn màn hình */
-         background-position: center;             /* Căn ảnh ở giữa màn hình */
-         background-repeat: no-repeat;            /* Không lặp lại ảnh */
-         background-attachment: fixed;            /* Cố định nền khi cuộn trang */
+      background-image: url('view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,7 +32,7 @@
       text-align: center;
     }
 
-/* ================= KHUNG ẢNH ĐỘNG LỰC GÓC TRÁI ================= */
+    /* ================= KHUNG ẢNH ĐỘNG LỰC GÓC TRÁI ================= */
     .motivation-widget {
       position: fixed;
       top: 20px;
@@ -181,8 +181,8 @@
     .lightbox-close:hover {
       background: rgba(239, 68, 68, 0.8);
     }
-    
-/* ================= GIAO DIỆN MẶC ĐỊNH (KHI NỀN TỐI) ================= */
+
+    /* ================= GIAO DIỆN MẶC ĐỊNH (KHI NỀN TỐI) ================= */
     .tag {
       display: inline-block;
       padding: 9px 16px;
@@ -203,7 +203,7 @@
       display: inline-block;
       margin: 15px auto 0;
       padding: 12px 24px;
-      background: rgba(0, 0, 0, 0.3); /* Khung nền mờ */
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 30px;
       backdrop-filter: blur(10px);
@@ -212,7 +212,6 @@
       font-size: 16px;
       line-height: 1.6;
       max-width: 90%;
-      /* Hiệu ứng chuyển động mờ dần khi đổi câu */
       transition: opacity 0.5s ease, transform 0.5s ease;
       opacity: 1;
       transform: translateY(0);
@@ -285,19 +284,20 @@
       border-color: rgba(0, 0, 0, 0.1);
       color: #1e293b;
     }
-   /* Class hỗ trợ ẩn câu cũ trước khi hiện câu mới */
+
     .subtitle.fade-out {
       opacity: 0;
       transform: translateY(-6px);
     }
+
     body.light-mode .time-box {
-      background: rgba(255, 255, 255, 0.65); /* Khung kính mờ sáng */
+      background: rgba(255, 255, 255, 0.65);
       border: 1px solid rgba(0, 0, 0, 0.12);
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
     }
 
     body.light-mode .number {
-      color: #1d4ed8; /* Số xanh đậm nổi bật */
+      color: #1d4ed8;
     }
 
     body.light-mode .label {
@@ -315,41 +315,16 @@
       color: #374151;
       text-shadow: none;
     }
-    /* Tương thích Light Mode cho khung ảnh góc trái & khung chỉnh nền góc phải */
-    body.light-mode .motivation-widget,
-    body.light-mode .bg-customizer-widget {
+
+    /* Tương thích Light Mode cho khung ảnh góc trái */
+    body.light-mode .motivation-widget {
       background: rgba(255, 255, 255, 0.75);
       border: 1px solid rgba(0, 0, 0, 0.12);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     }
 
-    body.light-mode .widget-title,
-    body.light-mode .control-label {
+    body.light-mode .widget-title {
       color: #1e3a8a;
-    }
-
-    body.light-mode .color-hex {
-      color: #334155;
-    }
-
-    body.light-mode .upload-btn {
-      background: rgba(29, 78, 216, 0.08);
-      border-color: rgba(29, 78, 216, 0.35);
-      color: #1e3a8a;
-    }
-
-    body.light-mode .upload-btn:hover {
-      background: rgba(29, 78, 216, 0.15);
-    }
-
-    body.light-mode .reset-bg-btn {
-      border-color: rgba(0, 0, 0, 0.18);
-      color: #334155;
-    }
-
-    body.light-mode .reset-bg-btn:hover {
-      background: rgba(0, 0, 0, 0.06);
-      color: #0f172a;
     }
 
     body.light-mode .widget-btn {
@@ -360,33 +335,15 @@
       background: #1e40af;
     }
 
-    @media (max-width: 900px) {
-      .motivation-widget,
-      .bg-customizer-widget {
+    @media (max-width: 768px) {
+      .motivation-widget {
         position: static;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto 14px;
+        margin: 0 auto 20px;
+        width: 180px;
       }
 
       body {
         flex-direction: column;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .timer {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin: 28px 0;
-      }
-
-      .time-box {
-        padding: 22px 5px;
-      }
-
-      .label {
-        font-size: 11px;
       }
     }
 
@@ -428,7 +385,7 @@
       </div>
     </div>
   </div>
-  
+
   <main class="container">
     <div class="tag">Ngày thi: 26-27/11/2026</div>
 
@@ -436,9 +393,9 @@
 
     <!-- Khung hiển thị câu nói tự đổi -->
     <div>
-    <p class="subtitle" id="quote">
-      Muốn tiến bộ thì phải học - Chủ tịch Hồ Chí Minh
-    </p>
+      <p class="subtitle" id="quote">
+        Muốn tiến bộ thì phải học - Chủ tịch Hồ Chí Minh
+      </p>
     </div>
     
     <div class="timer">
@@ -475,8 +432,6 @@
 
   <script>
     // 1. Đếm ngược
-    // Sửa ngày giờ bên dưới thành thời điểm thi của bạn.
-    // Ví dụ: ngày 25/11/2026 lúc 07:30 sáng.
     const examDate = new Date("2026-11-26T13:30:00+07:00");
 
     function updateCountdown() {
@@ -499,18 +454,15 @@
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
 
-      document.getElementById("days").textContent =
-        String(days);
-      document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
-      document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
-      document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
+      document.getElementById("days").textContent = String(days);
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
     // 2. Ngân hàng câu nói & Tự động đổi mỗi 10 giây
     const quotes = [
       "Muốn tiến bộ thì phải học - Chủ tịch Hồ Chí Minh",
@@ -535,7 +487,7 @@
     }
 
     setInterval(changeQuote, 10000);
-    
+
     // 3. Logic tự động phát hiện độ sáng ảnh nền để đổi màu chữ/khung
     function autoAdjustContrast(imageSrc) {
       const img = new Image();
@@ -552,114 +504,23 @@
         let count = 0;
 
         for (let i = 0; i < imgData.length; i += 4) {
-          // Tính độ sáng theo chuẩn mắt nhìn (ITU-R BT.709)
           const brightness = 0.2126 * imgData[i] + 0.7152 * imgData[i + 1] + 0.0722 * imgData[i + 2];
           totalBrightness += brightness;
           count++;
         }
 
-        applyContrastByBrightness(totalBrightness / count);
-      } catch (err) {
-          // Bỏ qua nếu ảnh ngoài chặn đọc pixel (CORS)
-      }
-    };
-  }
-
-    const defaultBgImage = "view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg";
-    autoAdjustContrast(defaultBgImage);
-
-    // 4. TÙY CHỈNH MÀU NỀN, ĐỘ SÁNG & TẢI ẢNH NỀN LÊN
-    const bgColorPicker = document.getElementById("bgColorPicker");
-    const bgBrightnessSlider = document.getElementById("bgBrightnessSlider");
-    const bgImageUpload = document.getElementById("bgImageUpload");
-    const resetBgBtn = document.getElementById("resetBgBtn");
-    const colorHexText = document.getElementById("colorHexText");
-    const brightnessValue = document.getElementById("brightnessValue");
-
-    let bgMode = "image"; // "image" hoặc "color"
-    let uploadedObjectUrl = null;
-
-    function adjustHexBrightness(hex, percent) {
-      const cleanHex = hex.replace("#", "");
-      let r = parseInt(cleanHex.substring(0, 2), 16);
-      let g = parseInt(cleanHex.substring(2, 4), 16);
-      let b = parseInt(cleanHex.substring(4, 6), 16);
-
-      const factor = percent / 100;
-      if (factor >= 0) {
-        r = Math.round(r + (255 - r) * factor);
-        g = Math.round(g + (255 - g) * factor);
-        b = Math.round(b + (255 - b) * factor);
-      } else {
-        const darkFactor = 1 + factor;
-        r = Math.round(r * darkFactor);
-        g = Math.round(g * darkFactor);
-        b = Math.round(b * darkFactor);
-      }
-
-      r = Math.max(0, Math.min(255, r));
-      g = Math.max(0, Math.min(255, g));
-      b = Math.max(0, Math.min(255, b));
-
-      return { r, g, b };
+        const avgBrightness = totalBrightness / count;
+        if (avgBrightness > 130) {
+          document.body.classList.add("light-mode");
+        } else {
+          document.body.classList.remove("light-mode");
+        }
+      };
     }
 
-    function applyCustomColorBackground() {
-      bgMode = "color";
-      const baseHex = bgColorPicker.value;
-      const brightnessOffset = parseInt(bgBrightnessSlider.value, 10);
+    autoAdjustContrast("view-from-the-airplane-window-beautiful-cloudscape-with-blue-sky-wonderful-panorama-above-white-clouds-as-seen-through-window-of-an-plane-traveling-by-air-concept-free-photo.jpg");
 
-      colorHexText.textContent = baseHex.toUpperCase();
-      brightnessValue.textContent = `${brightnessOffset > 0 ? "+" : ""}${brightnessOffset}%`;
-
-      const { r, g, b } = adjustHexBrightness(baseHex, brightnessOffset);
-      document.body.style.backgroundImage = "none";
-      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-
-      const perceivedBrightness = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-      applyContrastByBrightness(perceivedBrightness);
-    }
-
-    bgColorPicker.addEventListener("input", applyCustomColorBackground);
-    bgBrightnessSlider.addEventListener("input", () => {
-      const brightnessOffset = parseInt(bgBrightnessSlider.value, 10);
-      brightnessValue.textContent = `${brightnessOffset > 0 ? "+" : ""}${brightnessOffset}%`;
-      if (bgMode === "color") {
-        applyCustomColorBackground();
-      }
-    });
-
-    bgImageUpload.addEventListener("change", (e) => {
-      const file = e.target.files && e.target.files[0];
-      if (!file) return;
-
-      if (uploadedObjectUrl) {
-        URL.revokeObjectURL(uploadedObjectUrl);
-      }
-      uploadedObjectUrl = URL.createObjectURL(file);
-      bgMode = "image";
-
-      document.body.style.backgroundColor = "#0f172a";
-      document.body.style.backgroundImage = `url('${uploadedObjectUrl}')`;
-      autoAdjustContrast(uploadedObjectUrl);
-    });
-
-    resetBgBtn.addEventListener("click", () => {
-      bgMode = "image";
-      bgBrightnessSlider.value = 0;
-      brightnessValue.textContent = "0%";
-      bgImageUpload.value = "";
-
-      if (uploadedObjectUrl) {
-        URL.revokeObjectURL(uploadedObjectUrl);
-        uploadedObjectUrl = null;
-      }
-
-      document.body.style.backgroundColor = "#0f172a";
-      document.body.style.backgroundImage = `url('${defaultBgImage}')`;
-      autoAdjustContrast(defaultBgImage);
-    });
-  // 5. DANH SÁCH ẢNH ĐỘNG LỰC & XỬ LÝ CHUYỂN ẢNH
+    // 4. DANH SÁCH ẢNH ĐỘNG LỰC & XỬ LÝ CHUYỂN ẢNH
     // Thay thế các đường dẫn dưới đây bằng tên file ảnh trong máy bạn (vd: "anh1.jpg", "anh2.jpg") hoặc link ảnh online
     const motivationImages = [
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1000&q=80",
@@ -719,7 +580,6 @@
         updateModalImage();
       }
     });
-  
   </script>
 </body>
 </html>
